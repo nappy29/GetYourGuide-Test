@@ -2,19 +2,14 @@ package com.example.gygapp.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
-import com.example.gygapp.MainActivity;
 import com.example.gygapp.R;
 import com.example.gygapp.databinding.ReviewDetailsBinding;
 import com.example.gygapp.model.ReviewApiResponse;

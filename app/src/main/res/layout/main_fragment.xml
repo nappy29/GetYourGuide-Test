@@ -76,16 +76,16 @@
                 android:layout_below="@+id/rv_review"
                 android:visibility="gone"/>
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/err_but"-->
-<!--                android:src="@drawable/refresh_icon"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:lines="1"-->
-<!--                android:padding="2dp"-->
-<!--                android:textAlignment="center"-->
-<!--                android:visibility="gone"/>-->
+            <ImageButton
+                android:id="@+id/err_but"
+                android:src="@drawable/refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:lines="1"
+                android:padding="2dp"
+                android:textAlignment="center"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

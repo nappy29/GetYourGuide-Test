@@ -4,18 +4,16 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.paging.PageKeyedDataSource;
+import androidx.paging.PositionalDataSource;
 
 import com.example.gygapp.data.ReviewRepository;
 import com.example.gygapp.model.ReviewApiResponse;
-
-import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ReviewsDataSource extends PageKeyedDataSource<Integer, ReviewApiResponse.Review> {
+public class ReviewsDataSource extends PositionalDataSource<ReviewApiResponse.Review> {
 
     private static int offset = 0;
     private CompositeDisposable compositeDisposable;
@@ -32,19 +30,24 @@ public class ReviewsDataSource extends PageKeyedDataSource<Integer, ReviewApiRes
         progressStatus = new MutableLiveData<>();
     }
     @Override
-    public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Integer, ReviewApiResponse.Review> callback) {
+    public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback< ReviewApiResponse.Review> callback) {
 
         loading.postValue(true);
-        reviewRepository.getReviews( offset)
+        int position = computeInitialLoadPosition(params, 0);
+        int loadSize = computeInitialLoadSize(params, position, 0);
+        reviewRepository.getReviews( position)
                 .doOnSubscribe(disposable -> compositeDisposable.add(disposable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    Log.d("LiveData", response.getTotalCount() + "");
+                    Log.d("totalcount", response.getTotalCount() + "");
 
-                    offset++;
+                    Log.d("offset", offset + "");
+
+
+                    offset += 5;
                     loading.postValue(false);
-                    callback.onResult(response.getReviews(), null, offset);
+                    callback.onResult(response.getReviews(), position, 2);
 //                    reviewResponse.setValue(response);
 //                    loading.setValue(false);
 //                    error.setValue(false);
@@ -57,24 +60,21 @@ public class ReviewsDataSource extends PageKeyedDataSource<Integer, ReviewApiRes
     }
 
     @Override
-    public void loadBefore(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, ReviewApiResponse.Review> callback) {
-
-    }
-
-    @Override
-    public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Integer, ReviewApiResponse.Review> callback) {
+    public void loadRange(@NonNull LoadRangeParams params, @NonNull LoadRangeCallback<ReviewApiResponse.Review> callback) {
 
         progressStatus.postValue(true);
-        reviewRepository.getReviews(params.key)
+        reviewRepository.getReviews(params.startPosition)
                 .doOnSubscribe(disposable -> compositeDisposable.add(disposable))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    Log.d("LiveData", response.getTotalCount() + "");
+                    Log.d("total", response.getTotalCount() + "");
+                    Log.d("review size", response.getReviews().size() + "");
 
-                    offset = offset + 5;
+                    Log.d("params", params.startPosition + "");
+
                     progressStatus.postValue(false);
-                    callback.onResult(response.getReviews(), params.key + 5);
+                    callback.onResult(response.getReviews());
                 }, throwable -> {
                     Log.e("LiveData", "with error here" + throwable);
                     error.postValue(true);

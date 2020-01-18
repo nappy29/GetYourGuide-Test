@@ -51,11 +51,10 @@ public class MainViewModel extends ViewModel {
         return progressStatus;
     }
 
-    private void handlePaging(){
+    protected void handlePaging(){
         PagedList.Config pageListConfig = new PagedList.Config.Builder()
-                .setEnablePlaceholders(true)
-                .setInitialLoadSizeHint(10)
-                .setPageSize(10)
+                .setEnablePlaceholders(false)
+                .setPageSize(135)
                 .build();
 
         reviewResponseLiveData = new LivePagedListBuilder<>(reviewsDataSourceFactory, pageListConfig).build();
@@ -63,6 +62,11 @@ public class MainViewModel extends ViewModel {
         loading = Transformations.switchMap(reviewsDataSourceFactory.getReviewsResultsLiveData(), ReviewsDataSource::getLoading);
         error = Transformations.switchMap(reviewsDataSourceFactory.getReviewsResultsLiveData(), ReviewsDataSource::getError);
         progressStatus = Transformations.switchMap(reviewsDataSourceFactory.getReviewsResultsLiveData(), ReviewsDataSource::getProgressStatus);
+    }
+
+    public void invalidate() {
+        reviewsDataSourceFactory.getReviewsResultsLiveData().getValue().invalidate();
+
     }
 
     @Override

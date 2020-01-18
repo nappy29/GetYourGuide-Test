@@ -116,7 +116,7 @@ public class ReviewApiResponse {
             return getId() == review.getId() &&
                     isAnonymous() == review.isAnonymous() &&
                     getRating() == review.getRating() &&
-                    Objects.equals(getAuthor(), review.getAuthor()) &&
+                    Objects.equals(getAuthor().getFullName(), review.getAuthor().getFullName()) &&
                     Objects.equals(getMessage(), review.getMessage()) &&
                     Objects.equals(getEnjoyment(), review.getEnjoyment()) &&
                     Objects.equals(getDate_created(), review.getDate_created()) &&

@@ -51,6 +51,12 @@ public class ReviewAdapter extends PagedListAdapter<ReviewApiResponse.Review, Re
         return super.getItemId(position);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+
     static class ReviewViewHolder extends RecyclerView.ViewHolder {
 
         final ReviewRowBinding binding;

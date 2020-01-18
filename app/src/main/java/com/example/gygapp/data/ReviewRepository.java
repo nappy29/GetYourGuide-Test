@@ -14,6 +14,6 @@ public class ReviewRepository {
     }
 
     public Observable<ReviewApiResponse> getReviews( int offset) {
-        return reviewApiService.getReviews(10, offset);
+        return reviewApiService.getReviews(3, offset);
     }
 }

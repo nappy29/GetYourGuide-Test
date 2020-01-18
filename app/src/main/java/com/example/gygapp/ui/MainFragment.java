@@ -1,11 +1,9 @@
 package com.example.gygapp.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,6 +71,16 @@ public class MainFragment extends DaggerFragment implements ReviewClickCallback 
 
         setUpToolbar();
 
+        binding.errBut.setOnClickListener( view -> {
+
+            mainViewModel.invalidate();
+            mainViewModel.handlePaging();
+            binding.errBut.setVisibility(View.GONE);
+            binding.shimmerViewContainer.setVisibility(View.VISIBLE);
+            binding.shimmerViewContainer.startShimmerAnimation();
+                }
+        );
+
         observeViewModel();
     }
 
@@ -107,16 +115,12 @@ public class MainFragment extends DaggerFragment implements ReviewClickCallback 
         mainViewModel.getError().observe(this, isError -> {
             if(isError != null)
                 if(isError) {
-//                    binding.errBut.setVisibility(View.VISIBLE);
-                    int textViewId = com.google.android.material.R.id.snackbar_text;
+                    binding.errBut.setVisibility(View.VISIBLE);
                     Snackbar snackbar = Snackbar.make(getView(), "Please ensure your device has an active internet connection", Snackbar.LENGTH_LONG);
-                    TextView textView = snackbar.getView().findViewById(textViewId);
-
-//                    textView.setTextColor(Color.parseColor("#FFC107"));
                     snackbar.show();
                 }
-//                else
-//                    binding.errBut.setVisibility(View.GONE);
+                else
+                    binding.errBut.setVisibility(View.GONE);
         });
     }
 

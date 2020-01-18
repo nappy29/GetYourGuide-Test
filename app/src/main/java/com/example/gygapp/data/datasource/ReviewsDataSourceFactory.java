@@ -6,8 +6,6 @@ import androidx.paging.DataSource;
 import com.example.gygapp.data.ReviewRepository;
 import com.example.gygapp.model.ReviewApiResponse;
 
-import javax.inject.Inject;
-
 import io.reactivex.disposables.CompositeDisposable;
 
 public class ReviewsDataSourceFactory extends DataSource.Factory<Integer, ReviewApiResponse.Review> {
