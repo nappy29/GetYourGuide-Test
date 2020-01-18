@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="review" type="com.example.gygapp.model.ReviewApiResponse.Review"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@android:color/white"
+            android:background="?attr/colorPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/lin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/travelerType_title"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    android:id="@+id/tv_travelerType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="italic"
+                    android:layout_toRightOf="@+id/tv_one"
+                    android:layout_marginLeft="@dimen/seperate_word_9"
+                    android:text="@{review.travelerType != null? review.travelerType : `Unavailable`}"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    android:id="@+id/tv_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_travelerType"
+                    android:text="@string/language_title"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    android:id="@+id/tv_lang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_travelerType"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="italic"
+                    android:layout_toRightOf="@+id/tv_two"
+                    android:layout_marginLeft="@dimen/seperate_word_9"
+                    android:text="@{review.language}"
+                    android:textSize="@dimen/small_text"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/country_title"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    android:id="@+id/tv_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="italic"
+                    android:layout_toRightOf="@+id/tv_3"
+                    android:layout_marginLeft="@dimen/seperate_word_9"
+                    android:text="@{review.author.country}"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    android:id="@+id/tv_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_country"
+                    android:text="@string/isAnonym_title"
+                    android:textSize="@dimen/small_text"/>
+
+                <TextView
+                    android:id="@+id/tv_isAnonym"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_country"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="italic"
+                    android:layout_toRightOf="@+id/tv_4"
+                    android:layout_marginLeft="@dimen/seperate_word_9"
+                    android:text="@{String.valueOf(review.anonymous)}"
+                    android:textSize="@dimen/small_text"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lin"
+            android:paddingTop="@dimen/padding"
+            android:layout_centerHorizontal="true"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="@{review.rating}" />
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ratingBar"
+            android:padding="@dimen/padding">
+
+            <TextView
+                android:id="@+id/tv_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/by"
+                android:textSize="@dimen/small_text"/>
+
+            <TextView
+                android:id="@+id/tv_auth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/seperate_word_9"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                android:text="@{review.author.fullName}"
+                android:layout_toRightOf="@+id/tv_by"
+                android:textSize="@dimen/small_text"/>
+
+            <TextView
+                android:id="@+id/tv_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_on_title"
+                android:layout_toRightOf="@+id/tv_auth"
+                android:paddingLeft="@dimen/seperate_word_9"
+                android:textSize="@dimen/small_text"/>
+
+            <TextView
+                android:id="@+id/tv_create_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_on"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                android:paddingLeft="@dimen/seperate_word_9"
+                app:dateText="@{review.date_created}"
+                android:textSize="@dimen/small_text"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel1">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/coner_rad_3"
+                app:cardCornerRadius="@dimen/coner_rad_3"
+                app:cardUseCompatPadding="true">
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:textStyle="italic"
+                android:text="@{!review.message.equals(``)? review.message : `No Comment.`}"
+                android:textSize="@dimen/small_text"/>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="review" type="com.example.gygapp.model.ReviewApiResponse.Review"/>
+        <variable name="callback" type="com.example.gygapp.adapter.callback.ReviewClickCallback"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:onClick="@{() -> callback.onclick(review)}"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/review_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text"
+                android:layout_marginLeft="@dimen/margin_left_14"
+                android:textStyle="italic"
+                android:textColor="@color/colorPrimaryDark"
+                app:dateText="@{review.date_created}"/>
+
+            <TextView
+                android:id="@+id/review_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/large_text"
+                android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/margin_left_14"
+                android:requiresFadingEdge="horizontal"
+                android:fadingEdgeLength="12dp"
+                android:fadeScrollbars="false"
+                android:ellipsize="none"
+                android:layout_below="@+id/review_date"
+                app:reviewPreview="@{review.message}"/>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/review_msg"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="1.0"
+                android:rating="@{review.rating}" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

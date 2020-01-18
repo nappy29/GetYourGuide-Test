@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GYGApp</string>
+    <string name="welcome">Welcome to GYG Reviews Page</string>
+    <string name="country_title">Country</string>
+    <string name="create_on_title">On:</string>
+    <string name="isAnonym_title">isAnonymous:</string>
+    <string name="by">By </string>
+    <string name="main_toolbar_title">GetYourGuide Reviews</string>
+    <string name="details_fragment_title">Detailed Review page</string>
+    <string name="travelerType_title">Traveler Type:</string>
+    <string name="language_title">Language Code:</string>
+</resources>
