@@ -1,7 +1,5 @@
 package com.example.gygapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.example.gygapp.model.ReviewApiResponse;

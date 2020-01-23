@@ -16,7 +16,6 @@ import com.example.gygapp.databinding.ReviewRowBinding;
 import com.example.gygapp.model.ReviewApiResponse;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ReviewAdapter extends PagedListAdapter<ReviewApiResponse.Review, ReviewAdapter.ReviewViewHolder> {
 
@@ -70,47 +69,6 @@ public class ReviewAdapter extends PagedListAdapter<ReviewApiResponse.Review, Re
             binding.setReview(review);
             binding.executePendingBindings();
 
-        }
-    }
-
-//    @Override
-//    public int getItemCount() {
-//        return reviewList == null ? 0 : reviewList.size();
-//    }
-
-
-    public void setReviewList(final List<? extends ReviewApiResponse.Review> reviewList) {
-        if (this.reviewList == null) {
-            this.reviewList = reviewList;
-            notifyItemRangeInserted(0, reviewList.size());
-        } else {
-            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-                @Override
-                public int getOldListSize() {
-                    return ReviewAdapter.this.reviewList.size();
-                }
-
-                @Override
-                public int getNewListSize() {
-                    return reviewList.size();
-                }
-
-                @Override
-                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return ReviewAdapter.this.reviewList.get(oldItemPosition).getId()
-                            == (reviewList.get(newItemPosition).getId());
-                }
-
-                @Override
-                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    ReviewApiResponse.Review rocket = reviewList.get(newItemPosition);
-                    ReviewApiResponse.Review old = reviewList.get(oldItemPosition);
-                    return rocket.getMessage().equals(old.getMessage())
-                            && Objects.equals(rocket.getDate_created(), old.getDate_created());
-                }
-            });
-            this.reviewList = reviewList;
-            result.dispatchUpdatesTo(this);
         }
     }
 

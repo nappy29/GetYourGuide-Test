@@ -61,7 +61,6 @@ public class MainFragment extends DaggerFragment implements ReviewClickCallback 
         setHasOptionsMenu(true);
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
 
-//        mainViewModel.fetchReviews(limit,offset);
     }
 
     @Override
@@ -146,6 +145,5 @@ public class MainFragment extends DaggerFragment implements ReviewClickCallback 
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
         binding.toolbar.setTitle(R.string.main_toolbar_title);
-//        binding.toolBar.setTitleTextColor(Color.parseColor("#ffffff"));
     }
 }
